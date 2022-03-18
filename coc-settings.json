@@ -1,0 +1,39 @@
+{
+  	"explorer.keyMappings.global":{
+    	"i": false,
+   		"ic": false,
+    	"il": false,
+		"I": false,
+		"Ic": false,
+		"Il": false,
+		"II": false,
+		"K": false,
+    	"j": ["wait", "collapse"],
+    	"l": ["wait", "expand"],
+		"t": "open:tab"
+  	},
+	"explorer.width": 30,
+	//"explorer.contentWidthType": "win-width",
+	"explorer.contentWidth": -60,
+	"explorer.quitOnOpen": true,
+	"explorer.sources": [
+		{
+			"name": "buffer",
+			"expand": false
+		},
+		{
+			"name": "file",
+			"expand": true
+		}
+	],
+	"explorer.file.column.indent.indentLine": true,
+	"explorer.file.showHiddenFiles": true,
+	"explorer.icon.enableNerdfont": false,
+	//"explorer.keyMappingMode": "none",
+	"explorer.buffer.showHiddenBuffers": false,	
+	"coc.preferences.extensionUpdateCheck": "daily",
+	"suggest.noselect": true,
+	"suggest.enablePreview": false,
+	"clangd.path":"/usr/bin/clangd-12"
+}
+
