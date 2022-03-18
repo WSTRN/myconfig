@@ -46,16 +46,20 @@ nmap <C-s> :w<CR>
 "============
 "split screen
 "============
-map Sl :set splitright<CR>:vsplit<CR>
-map Sj :set nosplitright<CR>:vsplit<CR>
-map Sk :set splitbelow<CR>:split<CR>
-map Si :set nosplitbelow<CR>:split<CR>
-map Wl <C-w>l
-map Wj <C-w>h
-map Wk <C-w>j
-map Wi <C-w>k
-map <C-left> :vertical resize-5<CR>
-map <C-right> :vertical resize+5<CR>
+noremap sl :set splitright<CR>:vsplit<CR>
+noremap sj :set nosplitright<CR>:vsplit<CR>
+noremap sk :set splitbelow<CR>:split<CR>
+noremap si :set nosplitbelow<CR>:split<CR>
+noremap sv <C-w>t<C-w>K
+noremap sh <C-w>t<C-w>H
+noremap <LEADER>l <C-w>l
+noremap <LEADER>j <C-w>h
+noremap <LEADER>k <C-w>j
+noremap <LEADER>i <C-w>k
+noremap <C-left> ::vertical resize-5<CR>
+noremap <C-right> :vertical resize+5<CR>
+noremap <C-up> :res +5<CR>
+noremap <C-down> :res -5<CR>
 
 "============
 "tabview
