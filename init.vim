@@ -9,6 +9,7 @@ set hlsearch
 exec "nohlsearch"
 set ignorecase
 set cursorline
+set scrolloff=5
 set showcmd
 set wrap
 set nocompatible
