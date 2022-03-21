@@ -13,6 +13,7 @@ set scrolloff=5
 set showcmd
 set wrap
 set nocompatible
+set mouse=a
 filetype on
 filetype indent on
 filetype plugin on
@@ -37,6 +38,8 @@ noremap k j
 noremap j h
 noremap I 5k
 noremap K 5j
+noremap h e
+noremap H E
 map s <nop>
 map S <nop>
 map t <nop>
@@ -164,6 +167,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mbbill/undotree'
 Plug 'gcmt/wildfire.vim'
 Plug 'tpope/vim-surround'
+"surround
+" cs"' change surround
+" ds"  del "
+" ysiw] add ] surround
+" use S' in visual mode add ' surround
 Plug 'liuchengxu/vista.vim'
 "Plug 'vim-scripts/taglist.vim'
 Plug 'preservim/nerdcommenter'
@@ -258,6 +266,8 @@ let g:coc_global_extensions = [
 	\ 'coc-marketplace',
 	\ 'coc-clangd',
 	\ 'coc-cmake',
+	\ 'coc-sh',
+	\ 'coc-go'
 \]
 
 inoremap <silent><expr> <TAB>
@@ -270,14 +280,6 @@ function! s:check_back_space() abort
 		return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 "set signcolumn=number
-
-"===========
-"coc-explorer
-"===========
-
-
-
-
 
 
 

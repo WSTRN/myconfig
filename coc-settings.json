@@ -34,6 +34,15 @@
 	"coc.preferences.extensionUpdateCheck": "daily",
 	"suggest.noselect": true,
 	"suggest.enablePreview": false,
-	"clangd.path":"/usr/bin/clangd-12"
+	"clangd.path":"/usr/bin/clangd-12",
+	"clangd.disableDiagnostics":true,
+	"languageserver": {
+        "arduino":{ 
+		    "command":"~/.local/bin/arduino-language-server",
+		    "rootPatterns":["*.ino"],
+		    "filetypes":["arduino"],
+		    "args":["-cli", "~/.local/bin/arduino-cli", "-clangd", "/usr/bin/clangd-12", "-cli-config", "$HOME/.arduino15/arduino-cli.yaml"]
+		}
+	}
 }
 
