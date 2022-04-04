@@ -108,6 +108,14 @@ nnoremap <LEADER>/g <cmd>Telescope live_grep<cr>
 nnoremap <LEADER>/b <cmd>Telescope buffers<cr>
 nnoremap <LEADER>/h <cmd>Telescope help_tags<cr>
 
+
+"============
+"clang-format
+"============
+nmap <leader>f :ClangFormat<CR>
+xmap <leader>f :ClangFormat<CR>
+
+
 "============
 "coc.nvim
 "============
@@ -121,8 +129,32 @@ nmap <silent>gy <Plug>(coc-type-definition)
 nmap <silent>gi <Plug>(coc-implementation)
 nmap <silent>gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>f  <Plug>(coc-format-selected)
-xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
+"xmap <leader>f  <Plug>(coc-format-selected)
+"
+"inoremap <silent><expr> <TAB>
+	"\ pumvisible() ? "\<C-n>" :
+	"\ <SID>check_back_space() ? "\<TAB>" :
+	"\ coc#refresh()
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"function! s:check_back_space() abort
+		"let col = col('.') - 1
+		"return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
+"inoremap <silent><expr> <leader><tab> pumvisible()? coc#float#close():coc#refresh()
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+nnoremap <silent> <LEADER>h :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+"set signcolumn=number
 
 
 "============
@@ -130,6 +162,35 @@ xmap <leader>f  <Plug>(coc-format-selected)
 "============
 noremap <LEADER>v :Vista!!<CR>
 "noremap <c-t> :silent! Vista finder coc<CR>
+
+"============
+"coc-snippets
+"============
+"" Use <C-l> for trigger snippet expand.
+"imap <C-l> <Plug>(coc-snippets-expand)
+"" Use <C-j> for select text for visual placeholder of snippet.
+"vmap <C-j> <Plug>(coc-snippets-select)
+"" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+"let g:coc_snippet_next = '<c-j>'
+"" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+"let g:coc_snippet_prev = '<c-k>'
+"" Use <C-j> for both expand and jump (make expand higher priority.)
+"imap <C-j> <Plug>(coc-snippets-expand-jump)
+""" Use <leader>x for convert visual selected code to snippet
+"xmap <leader>x  <Plug>(coc-convert-snippet)
+
+inoremap <silent><expr> <TAB>
+	  \ pumvisible() ? "\<C-n>" : 
+	  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+	  \ <SID>check_back_space() ? "\<TAB>" :
+	  \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 
 "============
@@ -145,6 +206,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "============
 
+
 "============
 "Plug-in
 "============
@@ -153,7 +215,7 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'vim-airline/vim-airline'
 Plug 'itchyny/lightline.vim'
 "Plug 'connorholyday/vim-snazzy'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'folke/tokyonight.nvim', { 'branch':'main' }
 "Plug 'morhetz/gruvbox'
 "Plug 'olimorris/onedarkpro.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -167,11 +229,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mbbill/undotree'
 Plug 'gcmt/wildfire.vim'
 Plug 'tpope/vim-surround'
-"surround
-" cs"' change surround
-" ds"  del "
-" ysiw] add ] surround
-" use S' in visual mode add ' surround
+    "surround
+	" cs"' change surround
+	" ds"  del "
+	" ysiw] add ] surround
+	" use S' in visual mode add ' surround
 Plug 'liuchengxu/vista.vim'
 "Plug 'vim-scripts/taglist.vim'
 Plug 'preservim/nerdcommenter'
@@ -182,11 +244,32 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'airblade/vim-gitgutter'
 Plug 'mg979/vim-xtabline'
 Plug 'mhinz/vim-startify'
+Plug 'honza/vim-snippets'
+Plug 'RRethy/vim-illuminate'  "highlight word
+Plug 'rhysd/vim-clang-format'
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
+"============
+"coc.nvim
+"============
+"
+let g:coc_global_extensions = [
+	\ 'coc-explorer',
+	\ 'coc-lists',
+	\ 'coc-snippets',
+	\ 'coc-json',
+	\ 'coc-vimlsp',
+	\ 'coc-marketplace',
+	\ 'coc-clangd',
+	\ 'coc-cmake',
+	\ 'coc-sh',
+	\ 'coc-go'
+\]
 
-"theme
+
+"====================theme
 "colorscheme snazzy
 "
 let g:tokyonight_style = "night"
@@ -197,10 +280,12 @@ colorscheme tokyonight
 "colorscheme onedarkpro
 "
 "color gruvbox
+"============================
 
-"===========
-"NERDTree
-"===========
+
+" ===
+" === NERDTree
+" ===
 "autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " Open the existing NERDTree on each new tab.
 "autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
@@ -210,18 +295,18 @@ colorscheme tokyonight
 "let g:NERDTreeGitStatusConcealBrackets = 1
 "let g:NERDTreeGitStatusIndicatorMapCustom = { 'Modified'  :'✹', 'Staged'    :'✚', 'Untracked' :'✭', 'Renamed'   :'➜', 'Unmerged'  :'═', 'Deleted'   :'✖', 'Dirty'     :'✗', 'Ignored'   :'☒', 'Clean'     :'✔︎', 'Unknown'   :'?'  }
 
-"============
-"xtabline
-"============
+" ===
+" === xtabline
+" ===
 let g:xtabline_settings = {}
 let g:xtabline_settings.buffers_paths = 0
 let g:xtabline_settings.current_tab_paths = 0
 let g:xtabline_settings.other_tabs_paths = 0
 
 
-"============
-"gitgutter
-"============
+" ===
+" === gitgutter
+" ===
 let g:gitgutter_sign_allow_clobber = 0
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_preview_win_floating = 1
@@ -255,36 +340,16 @@ autocmd User Startified for key in ['b', 's', 't', 'v', 'i' ] |
 	\ execute 'nunmap <buffer>' key | endfor
 
 
-"============
-"coc.nvim
-"============
-"
-let g:coc_global_extensions = [
-	\ 'coc-explorer',
-	\ 'coc-json',
-	\ 'coc-vimlsp',
-	\ 'coc-marketplace',
-	\ 'coc-clangd',
-	\ 'coc-cmake',
-	\ 'coc-sh',
-	\ 'coc-go'
-\]
-
-inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
-	\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-		let col = col('.') - 1
-		return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-"set signcolumn=number
+" ===
+" === clang-format
+" ===
+let g:clang_format#command = "clang-format-12"
 
 
 
-
-
+" ===
+" === snippets
+" ===
 
 
 

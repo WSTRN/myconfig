@@ -36,6 +36,9 @@
 	"suggest.enablePreview": false,
 	"clangd.path":"/usr/bin/clangd-12",
 	"clangd.disableDiagnostics":true,
+	"clangd.arguments": ["--enable-config"],
+	"snippets.ultisnips.directories":[
+	],
 	"languageserver": {
         "arduino":{ 
 		    "command":"~/.local/bin/arduino-language-server",
